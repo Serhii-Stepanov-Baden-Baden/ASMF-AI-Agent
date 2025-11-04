@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "name": "ASMF-AI-Agent",
+  "builds": [
+    {
+      "src": "backend/app.js",
+      "use": "@vercel/node",
+      "config": {
+        "runtime": "nodejs18.x",
+        "memory": 1024,
+        "max_duration": 300
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/app.js",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+      }
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "3000"
+  },
+  "functions": {
+    "backend/app.js": {
+      "runtime": "nodejs18.x",
+      "memory": 1024,
+      "maxDuration": 300
+    }
+  },
+  "framework": null,
+  "installCommand": "cd backend && npm install",
+  "buildCommand": "echo 'Build completed - Vercel will serve the app.js file directly'",
+  "outputDirectory": "backend",
+  "devCommand": "cd backend && npm run dev",
+  "restartPolicy": "onFailure",
+  "killSignal": "SIGTERM",
+  "timeout": 300,
+  "regions": ["fra1"],
+  "cleanUrls": false,
+  "trailingSlash": false
+}
